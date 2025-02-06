@@ -9,7 +9,7 @@ service ProductService {
   rpc FindAll (FindAllRequest) returns (FindAllResponse) {}
   rpc DecreaseStock(DecreaseStockRequest) returns (DecreaseStockResponse) {}
   rpc FindOne(FindOneRequest) returns (FindOneResponse) {}
-  rpc ClearCart(ClearCartRequest) returns (ClearCartResponse);
+ 
 }
 
 message FindAllRequest {}
@@ -52,11 +52,3 @@ message DecreaseStockResponse {
   string error = 2;
 }
 
-message ClearCartRequest {
-  int64 userId = 1;
-}
-
-message ClearCartResponse {
-  bool success = 1;
-  string message = 2;
-}
