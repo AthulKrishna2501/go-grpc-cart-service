@@ -1,4 +1,4 @@
-module github.com/AthulKrishna2501/go-grpc-cart-svc
+module github.com/AthulKrishna2501/go-grpc-cart-service
 
 go 1.22.2
 
