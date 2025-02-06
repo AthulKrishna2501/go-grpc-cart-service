@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/config"
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/pb"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/config"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/pb"
 	"google.golang.org/grpc"
 )
 

@@ -5,11 +5,11 @@ import (
 	"log"
 	"net"
 
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/config"
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/db"
-	pb "github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/pb"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/config"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/db"
+	pb "github.com/AthulKrishna2501/go-grpc-cart-service/pkg/pb"
 
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/services"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/services"
 
 	"google.golang.org/grpc"
 )

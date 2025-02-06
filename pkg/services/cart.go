@@ -6,9 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/db"
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/models"
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/pb"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/db"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/models"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/pb"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
@@ -145,7 +145,7 @@ func (s *Server) RemoveFromCart(ctx context.Context, req *pb.RemoveFromCartReque
 	if err := s.H.DB.Model(&cartItem).UpdateColumn("deleted_at", time.Now()).Error; err != nil {
 		return nil, status.Errorf(codes.Internal, "Failed to remove product from cart: %v", err)
 	}
-	
+
 	var newTotalPrice float64
 	if err := s.H.DB.Model(&models.CartItem{}).
 		Where("cart_id = ? AND deleted_at IS NULL", cartItem.CartID).

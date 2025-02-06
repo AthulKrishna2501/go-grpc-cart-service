@@ -3,7 +3,7 @@ package db
 import (
 	"log"
 
-	"github.com/AthulKrishna2501/go-grpc-cart-svc/pkg/models"
+	"github.com/AthulKrishna2501/go-grpc-cart-service/pkg/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
