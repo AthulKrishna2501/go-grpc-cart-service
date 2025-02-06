@@ -22,6 +22,7 @@ const (
 	ProductService_FindAll_FullMethodName       = "/product.ProductService/FindAll"
 	ProductService_DecreaseStock_FullMethodName = "/product.ProductService/DecreaseStock"
 	ProductService_FindOne_FullMethodName       = "/product.ProductService/FindOne"
+	ProductService_ClearCart_FullMethodName     = "/product.ProductService/ClearCart"
 )
 
 // ProductServiceClient is the client API for ProductService service.
@@ -31,6 +32,7 @@ type ProductServiceClient interface {
 	FindAll(ctx context.Context, in *FindAllRequest, opts ...grpc.CallOption) (*FindAllResponse, error)
 	DecreaseStock(ctx context.Context, in *DecreaseStockRequest, opts ...grpc.CallOption) (*DecreaseStockResponse, error)
 	FindOne(ctx context.Context, in *FindOneRequest, opts ...grpc.CallOption) (*FindOneResponse, error)
+	ClearCart(ctx context.Context, in *ClearCartRequest, opts ...grpc.CallOption) (*ClearCartResponse, error)
 }
 
 type productServiceClient struct {
@@ -71,6 +73,16 @@ func (c *productServiceClient) FindOne(ctx context.Context, in *FindOneRequest, 
 	return out, nil
 }
 
+func (c *productServiceClient) ClearCart(ctx context.Context, in *ClearCartRequest, opts ...grpc.CallOption) (*ClearCartResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ClearCartResponse)
+	err := c.cc.Invoke(ctx, ProductService_ClearCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductServiceServer is the server API for ProductService service.
 // All implementations must embed UnimplementedProductServiceServer
 // for forward compatibility.
@@ -78,6 +90,7 @@ type ProductServiceServer interface {
 	FindAll(context.Context, *FindAllRequest) (*FindAllResponse, error)
 	DecreaseStock(context.Context, *DecreaseStockRequest) (*DecreaseStockResponse, error)
 	FindOne(context.Context, *FindOneRequest) (*FindOneResponse, error)
+	ClearCart(context.Context, *ClearCartRequest) (*ClearCartResponse, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
 
@@ -96,6 +109,9 @@ func (UnimplementedProductServiceServer) DecreaseStock(context.Context, *Decreas
 }
 func (UnimplementedProductServiceServer) FindOne(context.Context, *FindOneRequest) (*FindOneResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindOne not implemented")
+}
+func (UnimplementedProductServiceServer) ClearCart(context.Context, *ClearCartRequest) (*ClearCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ClearCart not implemented")
 }
 func (UnimplementedProductServiceServer) mustEmbedUnimplementedProductServiceServer() {}
 func (UnimplementedProductServiceServer) testEmbeddedByValue()                        {}
@@ -172,6 +188,24 @@ func _ProductService_FindOne_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductService_ClearCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClearCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServiceServer).ClearCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductService_ClearCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServiceServer).ClearCart(ctx, req.(*ClearCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductService_ServiceDesc is the grpc.ServiceDesc for ProductService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +224,10 @@ var ProductService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindOne",
 			Handler:    _ProductService_FindOne_Handler,
+		},
+		{
+			MethodName: "ClearCart",
+			Handler:    _ProductService_ClearCart_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

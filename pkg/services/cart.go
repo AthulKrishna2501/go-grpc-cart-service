@@ -163,3 +163,17 @@ func (s *Server) RemoveFromCart(ctx context.Context, req *pb.RemoveFromCartReque
 		Message: "Product removed from cart successfully (soft delete)",
 	}, nil
 }
+
+func (s *Server) ClearCart(ctx context.Context, req *pb.ClearCartRequest) (*pb.ClearCartResponse, error) {
+	if err := s.H.DB.Where("user_id = ?", req.UserId).Delete(&models.CartItem{}).Error; err != nil {
+		return &pb.ClearCartResponse{
+			Success: false,
+			Message: "Failed to clear cart",
+		}, err
+	}
+
+	return &pb.ClearCartResponse{
+		Success: true,
+		Message: "Cart cleared successfully",
+	}, nil
+}
